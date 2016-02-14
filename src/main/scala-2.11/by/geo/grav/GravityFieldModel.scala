@@ -10,12 +10,28 @@ import org.apache.commons.math3.util.FastMath
   * @param ell      эллипсоид
   * @param nMax     максимальная степень
   */
-abstract case class GravityFieldModel(fileName: String, ell: Ellipsoid, nMax: Int) {
-
+abstract class GravityFieldModel(val fileName: String,
+                                 val ell: Ellipsoid,
+                                 val nMax: Int) {
   require(nMax >= 1)
 
   private val zonDeg = 5
-  private val W = 62636856.0
+  val W = 62636856.0
+
+  /**
+    * Геоцентрическая гравитационная постоянная.
+    */
+  def GM: Double
+
+  /**
+    * Большая полуось.
+    */
+  def a: Double
+
+  /**
+    * Максимальная степень.
+    */
+  val maxDegree: Int = nMax
 
   private val C: Array[Array[Double]] = Array.ofDim(nMax + 1)
   private val S: Array[Array[Double]] = Array.ofDim(nMax + 1)
@@ -28,22 +44,7 @@ abstract case class GravityFieldModel(fileName: String, ell: Ellipsoid, nMax: In
   readGFC()
   zonalCorrect()
 
-  abstract def readGFC(): Unit
-
-  /**
-    * Геоцентрическая гравитационная постоянная.
-    */
-  abstract val GM: Double
-
-  /**
-    * Большая полуось.
-    */
-  abstract val a: Double
-
-  /**
-    * Максимальная степень.
-    */
-  val maxDegree: Int = nMax
+  protected def readGFC(): Unit
 
   /**
     * Формирование массивов.
@@ -63,7 +64,7 @@ abstract case class GravityFieldModel(fileName: String, ell: Ellipsoid, nMax: In
     * Нормированный зональный коэффициент.
     */
   private def getZonalC(n: Int): Double = {
-    ell.GM / GM * FastMath.pow(ell.a / a, n) * ell.j2n(n) / FastMath.sqrt(4 * n + 1)
+    (ell.GM / GM) * FastMath.pow(ell.a / a, n) * ell.j2n(n) / FastMath.sqrt(4 * n + 1)
   }
 
   /**

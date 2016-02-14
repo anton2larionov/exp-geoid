@@ -19,10 +19,10 @@ class EllipsoidalRadius(ell: Ellipsoid) extends GeodeticToDouble {
       pt <- Option(pt)
       ell <- Option(ell)
     } yield {
-      val e2 = FastMath.pow(ell.e, 2)
+      val e2 = FastMath.pow(ell.e1, 2)
       val sinPhi2 = FastMath.pow(FastMath.sin(pt.latRad()), 2)
 
-      ell.a * FastMath.sqrt(1 - e2 * (1 - e2) * sinPhi2 / (1 - e2 * sinPhi2))
+      ell.a * FastMath.sqrt(1 - (e2 * (1 - e2) * sinPhi2 / (1 - e2 * sinPhi2)))
     }
   }
 }

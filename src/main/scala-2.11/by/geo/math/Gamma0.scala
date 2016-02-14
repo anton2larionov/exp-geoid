@@ -23,7 +23,7 @@ class Gamma0(ell: Ellipsoid) extends GeodeticToDouble {
       val lat = pt.latRad()
 
       ell.gammaE * (1 + ell.k * FastMath.pow(FastMath.sin(lat), 2)) /
-        FastMath.sqrt(1 - FastMath.pow(ell.e * FastMath.sin(lat), 2))
+        FastMath.sqrt(1 - FastMath.pow(ell.e1 * FastMath.sin(lat), 2))
     }
   }
 }

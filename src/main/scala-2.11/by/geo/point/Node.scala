@@ -8,7 +8,7 @@ package by.geo.point
   * @param i   первый индекс
   * @param j   второй индекс
   */
-class Node(lat: Double, lon: Double, i: Int, j: Int) extends Geodetic {
+case class Node(lat: Double, lon: Double, i: Int, j: Int) extends Geodetic {
   /**
     * Широта в градусах.
     *

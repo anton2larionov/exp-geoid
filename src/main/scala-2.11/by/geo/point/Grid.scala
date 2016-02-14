@@ -14,8 +14,8 @@ package by.geo.point
   */
 case class Grid(lat0: Double, lon0: Double, lat: Double, lon: Double, dlat: Double, dlon: Double) {
 
-  require(lat > lat0)
-  require(lon > lon0)
+  require(lat >= lat0)
+  require(lon >= lon0)
   require(dlat > 0)
   require(dlon > 0)
 
@@ -32,7 +32,7 @@ case class Grid(lat0: Double, lon0: Double, lat: Double, lon: Double, dlat: Doub
   /**
     * Двухмерный массив значений.
     */
-  private[this] lazy val vals: Array[Array[Double]] = Array.ofDim[Double](rowNum, colNum)
+  private[this] val vals: Array[Array[Double]] = Array.ofDim[Double](rowNum, colNum)
 
   /**
     * @param pt геодезические координаты

@@ -23,13 +23,13 @@ class BilinearInterpolatorTest extends FunSuite {
       case None => fail()
     }
 
-    grid.setValue(0, 0, 0.0)
+    grid.setValue(0, 0, 2.0)
     grid.setValue(0, 1, 2.0)
-    grid.setValue(1, 0, 2.0)
+    grid.setValue(1, 0, 4.0)
     grid.setValue(1, 1, 4.0)
 
     inter(pt) match {
-      case Some(x) => assert(x == 2)
+      case Some(x) => assert(x == 3)
       case None => fail()
     }
 

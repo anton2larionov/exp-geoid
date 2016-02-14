@@ -25,8 +25,9 @@ import scala.util.{Failure, Success, Try}
 class EGM08(fileName: String, ell: Ellipsoid)
   extends GravityFieldModel(fileName, ell, nMax = 2190) {
 
-  override val GM: Double = 3.986004415E+14
-  override val a: Double = 6378136.3
+  override def GM: Double = 3.986004415E+14
+
+  override def a: Double = 6378136.3
 
   private def parseDouble(s: String) = try {
     Some(s.toDouble)
@@ -72,8 +73,7 @@ class EGM08(fileName: String, ell: Ellipsoid)
 
     // must remake!
     res match {
-      case Failure(thrown) =>
-        throw thrown
+      case Failure(e) => throw e
       case Success(results) =>
         results.foreach { result =>
           result.recover {
