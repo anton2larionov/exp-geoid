@@ -7,7 +7,7 @@ import org.apache.commons.math3.util.FastMath
 /**
   * Функция вычисления локального эллипсоидального радиуса.
   */
-class EllipsoidalRadius(ell: Ellipsoid) extends GeodeticToDouble {
+class EllipsoidalRadius(private val ell: Ellipsoid) extends GeodeticToDouble {
 
   /**
     * Вычисление локального эллипсоидального радиуса в точке pt.

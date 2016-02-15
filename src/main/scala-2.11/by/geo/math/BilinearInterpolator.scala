@@ -5,7 +5,7 @@ import by.geo.point.{Geodetic, Grid}
 /**
   * Функция, осуществляющая билинейную интерполяцию по сетке значений.
   */
-class BilinearInterpolator(grid: Grid) extends GeodeticToDouble {
+class BilinearInterpolator(private val grid: Grid) extends GeodeticToDouble {
 
   override def apply(pt: Geodetic): Option[Double] = {
 
@@ -32,6 +32,6 @@ class BilinearInterpolator(grid: Grid) extends GeodeticToDouble {
       } yield (1 - fx) * (1 - fy) * d1 + (1 - fx) * fy * d2 + fx * (1 - fy) * d3 + fx * fy * d4
     }
 
-    res getOrElse None
+    res flatten
   }
 }

@@ -9,7 +9,7 @@ import org.apache.commons.math3.util.FastMath
   * @param nMax максимальная степень
   * @throws IllegalArgumentException если nMax < 1
   */
-class LegendrePolynoms(phi: Double, nMax: Int) {
+class LegendrePolynoms(val phi: Double, val nMax: Int) {
 
   require(nMax >= 1)
 

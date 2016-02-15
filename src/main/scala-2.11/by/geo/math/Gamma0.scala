@@ -7,7 +7,7 @@ import org.apache.commons.math3.util.FastMath
 /**
   * Функция вычисления нормальной силы тяжести на поверхности эллипсоида.
   */
-class Gamma0(ell: Ellipsoid) extends GeodeticToDouble {
+class Gamma0(private val ell: Ellipsoid) extends GeodeticToDouble {
 
   /**
     * Вычисление нормальной силы тяжести на поверхности эллипсоида

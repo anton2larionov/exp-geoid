@@ -9,19 +9,19 @@ import by.geo.point.Grid
   * @param grid регулярная сетка
   * @param calc калькулятор высот геоида
   */
-class CalcOnGrid(grid: Grid, calc: GeoidCalculator) {
+class CalcOnGrid(private val grid: Grid, private val calc: GeoidCalculator) {
 
   def perform(): Unit = {
     val gridToNodes = new GridToNodes
+    val parNodes = gridToNodes(grid).par
 
-    gridToNodes(grid)
-      .par
-      .map(node => (node, calc(node)))
+    lazy val heights = parNodes.map(calc(_))
+
+    parNodes
+      .zip(heights)
       .foreach(pair => {
-        val node = pair._1
-        val h = pair._2 getOrElse 0.0
-
-        grid.setValue(node.i, node.j, h)
+        val (node, h) = pair
+        grid.setValue(node.i, node.j, h getOrElse 0.0)
       })
   }
 }

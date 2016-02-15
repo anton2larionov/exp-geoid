@@ -23,16 +23,16 @@ import scala.util.{Failure, Success, Try}
   *
   */
 class EGM08(fileName: String, ell: Ellipsoid)
-  extends GravityFieldModel(fileName, ell, nMax = 2190) {
+  extends GravityFieldModel(fileName, ell, maxDegree = 2190) {
 
   override def GM: Double = 3.986004415E+14
 
   override def a: Double = 6378136.3
 
   private def parseDouble(s: String) = try {
-    Some(s.toDouble)
+    s.toDouble
   } catch {
-    case NonFatal(_) => None
+    case NonFatal(_) => 0.0
   }
 
   override def readGFC(): Unit = {
@@ -43,9 +43,7 @@ class EGM08(fileName: String, ell: Ellipsoid)
       }
     } yield Seq(
       Try {
-
-        var x = 2
-        var y = 0
+        var (x, y) = (2, 0)
 
         for (line <-
              Iterator
@@ -55,11 +53,11 @@ class EGM08(fileName: String, ell: Ellipsoid)
 
           val raw = line.split("\\s++")
 
-          setC(x, y, parseDouble(raw(3)).getOrElse(0.0))
-          setS(x, y, parseDouble(raw(4)).getOrElse(0.0))
+          setC(x, y, parseDouble(raw(3)))
+          setS(x, y, parseDouble(raw(4)))
 
-          setErrorC(x, y, parseDouble(raw(5)).getOrElse(0.0))
-          setErrorS(x, y, parseDouble(raw(6)).getOrElse(0.0))
+          setErrorC(x, y, parseDouble(raw(5)))
+          setErrorS(x, y, parseDouble(raw(6)))
 
           y = y + 1
           if (y > x) {

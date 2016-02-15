@@ -16,9 +16,8 @@ object Main {
 
     for {
       model <- Option(new EGM08("e:/downloads/egm2008.gfc", GRS80))
+      calc = new GeoidCalculator(model)
     } {
-      val calc = new GeoidCalculator(model)
-
       new CalcOnGrid(grid, calc).perform()
       new GridToTXT(grid).write("e:/downloads/out.txt")
     }
@@ -26,7 +25,6 @@ object Main {
     println(
       new BilinearInterpolator(grid)(new Geodetic {
         override def lonDeg(): Double = 23
-
         override def latDeg(): Double = 57
       })
     )

@@ -7,7 +7,7 @@ import org.apache.commons.math3.util.FastMath
 /**
   * Функция вычисления сферической широты.
   */
-class GeocentricLatitude(ell: Ellipsoid) extends GeodeticToDouble {
+class GeocentricLatitude(val ell: Ellipsoid) extends GeodeticToDouble {
 
   /**
     * Вычисление сферической широты в точке pt.

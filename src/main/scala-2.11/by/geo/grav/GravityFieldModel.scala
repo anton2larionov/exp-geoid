@@ -6,14 +6,14 @@ import org.apache.commons.math3.util.FastMath
 /**
   * Глобальная модель гравитационного поля Земли.
   *
-  * @param fileName имя файла с коэффициентами модели
-  * @param ell      эллипсоид
-  * @param nMax     максимальная степень
+  * @param fileName  имя файла с коэффициентами модели
+  * @param ell       эллипсоид
+  * @param maxDegree максимальная степень
   */
-abstract class GravityFieldModel(val fileName: String,
+abstract class GravityFieldModel(private val fileName: String,
                                  val ell: Ellipsoid,
-                                 val nMax: Int) {
-  require(nMax >= 1)
+                                 val maxDegree: Int) {
+  require(maxDegree >= 1)
 
   private val zonDeg = 5
   val W = 62636856.0
@@ -28,15 +28,10 @@ abstract class GravityFieldModel(val fileName: String,
     */
   def a: Double
 
-  /**
-    * Максимальная степень.
-    */
-  val maxDegree: Int = nMax
-
-  private val C: Array[Array[Double]] = Array.ofDim(nMax + 1)
-  private val S: Array[Array[Double]] = Array.ofDim(nMax + 1)
-  private val dC: Array[Array[Double]] = Array.ofDim(nMax + 1)
-  private val dS: Array[Array[Double]] = Array.ofDim(nMax + 1)
+  private val C: Array[Array[Double]] = Array.ofDim(maxDegree + 1)
+  private val S: Array[Array[Double]] = Array.ofDim(maxDegree + 1)
+  private val dC: Array[Array[Double]] = Array.ofDim(maxDegree + 1)
+  private val dS: Array[Array[Double]] = Array.ofDim(maxDegree + 1)
   fillArray(C)
   fillArray(S)
   fillArray(dC)

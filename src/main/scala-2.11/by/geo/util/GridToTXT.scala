@@ -7,7 +7,7 @@ import by.geo.point.Grid
 /**
   * Преобразователь грида в текстовый формат.
   */
-class GridToTXT(grid: Grid) {
+class GridToTXT(private val grid: Grid) {
 
   def write(fileName: String): Unit = {
 
